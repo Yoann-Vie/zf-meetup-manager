@@ -6,4 +6,4 @@ data/cache/*
 phpunit.xml
 
 # Project
-.idea/
+.idea
