@@ -1,7 +1,37 @@
-zf:
-  build: .
-  dockerfile: Dockerfile
-  ports:
-   - "8080:80"
-  volumes:
-   - .:/var/www
+
+version: "3.3"
+services:
+  zf:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "${SKEL_EXTERNAL_PORT:-8080}:80"
+    volumes:
+      - .:/var/www
+    depends_on:
+      - database
+    environment:
+      - SKEL_DB_HOST=database
+      - SKEL_DB_NAME=meetup_manager
+      - SKEL_DB_USER=application
+      - SKEL_DB_PASS=fgWvFbhK
+      - SKEL_DB_PORT=3306
+  database:
+    image: mysql:5.7
+    expose:
+      - "3306"
+    environment:
+      - MYSQL_DATABASE=meetup_manager
+      - MYSQL_ROOT_PASSWORD=aye4DzRW
+      - MYSQL_USER=application
+      - MYSQL_PASSWORD=fgWvFbhK
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    depends_on:
+      - database
+    environment:
+      PMA_HOST: database
+      PMA_PORT: 3306
+    ports:
+      - "9090:80"
