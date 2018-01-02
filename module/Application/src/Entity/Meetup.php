@@ -40,10 +40,18 @@ class Meetup
 
     /**
      * Meetup constructor.
+     * @param string $title
+     * @param string $description
+     * @param \DateTime $startDate
+     * @param \DateTime $endDate
      */
-    public function __construct()
+    public function __construct(string $title, string $description, \DateTime $startDate, \DateTime $endDate)
     {
         $this->id = Uuid::uuid4()->toString();
+        $this->title = $title;
+        $this->description = $description;
+        $this->startDate = $startDate;
+        $this->endDate = $endDate;
     }
 
     /**
