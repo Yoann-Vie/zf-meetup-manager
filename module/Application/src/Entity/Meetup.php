@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Application\Entity;
 
+use Doctrine\ORM\PersistentCollection;
 use Ramsey\Uuid\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -37,6 +38,11 @@ class Meetup
      * @ORM\Column(type="datetime", nullable=false)
      */
     private $endDate;
+    /**
+     * @ORM\ManyToMany(targetEntity="Application\Entity\Owner", inversedBy="meetups", cascade={"persist"})
+     * @ORM\JoinTable(name="meetups_owners")
+     */
+    private $owners;
 
     /**
      * Meetup constructor.
@@ -130,6 +136,26 @@ class Meetup
     public function setEndDate(\DateTime $endDate) : Meetup
     {
         $this->endDate = $endDate;
+
+        return $this;
+    }
+
+    /**
+     * @return PersistentCollection
+     */
+    public function getOwners() : PersistentCollection
+    {
+        return $this->owners;
+    }
+
+    /**
+     * @param Owner[] $owners
+     *
+     * @return Meetup
+     */
+    public function setOwners(array $owners) : Meetup
+    {
+        $this->owners = $owners;
 
         return $this;
     }
