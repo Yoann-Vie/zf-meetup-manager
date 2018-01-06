@@ -84,4 +84,23 @@ class MeetupController extends AbstractActionController
             'form' => $form,
         ]);
     }
+
+    /**
+     * @return \Zend\Http\Response|ViewModel
+     */
+    public function detailsAction()
+    {
+        /** @var string $meetupId */
+        $meetupId = $this->params()->fromRoute('meetupId');
+        /** @var Meetup $meetup */
+        $meetup = $this->meetupRepository->find($meetupId);
+        // if meetup Id is invalid
+        if (!$meetup instanceof Meetup) {
+            return $this->redirect()->toRoute('meetups/list');
+        }
+
+        return new ViewModel([
+            'meetup' => $meetup,
+        ]);
+    }
 }

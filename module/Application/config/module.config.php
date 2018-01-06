@@ -53,6 +53,18 @@ return [
                             ],
                         ]
                     ],
+                    'details' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/details/[:meetupId]',
+                            'constraints' => [
+                                'meetupId' => '[a-zA-Z0-9_-]+',
+                            ],
+                            'defaults' => [
+                                'action' => 'details',
+                            ],
+                        ],
+                    ],
                 ],
             ],
         ],
@@ -76,12 +88,13 @@ return [
         'not_found_template'       => 'error/404',
         'exception_template'       => 'error/index',
         'template_map' => [
-            'layout/layout'           => __DIR__ . '/../view/layout/layout.phtml',
-            'application/index/home'  => __DIR__ . '/../view/application/index/home.phtml',
-            'application/meetup/add'  => __DIR__ . '/../view/application/meetup/add.phtml',
-            'application/meetup/list' => __DIR__ . '/../view/application/meetup/list.phtml',
-            'error/404'               => __DIR__ . '/../view/error/404.phtml',
-            'error/index'             => __DIR__ . '/../view/error/index.phtml',
+            'layout/layout'              => __DIR__ . '/../view/layout/layout.phtml',
+            'application/index/home'     => __DIR__ . '/../view/application/index/home.phtml',
+            'application/meetup/add'     => __DIR__ . '/../view/application/meetup/add.phtml',
+            'application/meetup/list'    => __DIR__ . '/../view/application/meetup/list.phtml',
+            'application/meetup/details' => __DIR__ . '/../view/application/meetup/details.phtml',
+            'error/404'                  => __DIR__ . '/../view/error/404.phtml',
+            'error/index'                => __DIR__ . '/../view/error/index.phtml',
         ],
         'template_path_stack' => [
             __DIR__ . '/../view',

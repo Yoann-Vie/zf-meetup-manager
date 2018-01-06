@@ -1,0 +1,7 @@
+<h2><?= $this->meetup->getTitle() ?></h2><br>
+
+<p><a href="<?= $this->url('meetups/list'); ?>">Back to Meetups list</a></p>
+
+<p><?= $this->meetup->getDescription(); ?></p>
+<p>Beginning : <span><?= $this->meetup->getStartDate()->format(\Application\Service\MeetupService::DISPLAY_DATE_FORMAT); ?></span></p>
+<p>End : <span><?= $this->meetup->getEndDate()->format( \Application\Service\MeetupService::DISPLAY_DATE_FORMAT); ?></span></p>
