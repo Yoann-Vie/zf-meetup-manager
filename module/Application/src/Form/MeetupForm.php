@@ -6,8 +6,10 @@ namespace Application\Form;
 
 use Zend\Form\Element;
 use Zend\Form\Form;
+use Zend\InputFilter\InputFilterProviderInterface;
+use Zend\Validator as Validator;
 
-class MeetupForm extends Form
+class MeetupForm extends Form implements InputFilterProviderInterface
 {
     /**
      * @var string $name
@@ -46,6 +48,10 @@ class MeetupForm extends Form
             'name' => 'start_date',
             'options' => [
                 'label' => 'Meetup starting date',
+                'format' => 'Y-m-d H:i:s',
+            ],
+            'attributes' => [
+                'step' => 'any',
             ],
         ]);
         $this->add([
@@ -53,6 +59,10 @@ class MeetupForm extends Form
             'name' => 'end_date',
             'options' => [
                 'label' => 'Meetup end date',
+                'format' => 'Y-m-d H:i:s',
+            ],
+            'attributes' => [
+                'step' => 'any',
             ],
         ]);
 
@@ -63,5 +73,38 @@ class MeetupForm extends Form
                 'value' => 'Submit',
             ],
         ]);
+    }
+
+    /**
+     * Define validators configuration
+     *
+     * @return array
+     */
+    public function getInputFilterSpecification() : array
+    {
+        return [
+            'title' => [
+                'validators' => [
+                    [
+                        'name' => Validator\StringLength::class,
+                        'options' => [
+                            'min' => 2,
+                            'max' => 50,
+                        ],
+                    ]
+                ],
+            ],
+            'description' => [
+                'validators' => [
+                    [
+                        'name' => Validator\StringLength::class,
+                        'options' => [
+                            'min' => 2,
+                            'max' => 2000,
+                        ],
+                    ]
+                ],
+            ],
+        ];
     }
 }

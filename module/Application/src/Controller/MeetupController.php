@@ -6,6 +6,7 @@ namespace Application\Controller;
 
 use Application\Form\MeetupForm;
 use Application\Repository\MeetupRepository;
+use Zend\Http\Request;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
@@ -40,11 +41,23 @@ class MeetupController extends AbstractActionController
     }
 
     /**
-     * @return ViewModel
+     *
      */
     public function addAction()
     {
         $form = $this->meetupForm;
+
+        /** @var Request $request */
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            $form->setData($request->getPost());
+            if ($form->isValid()) {
+                // TODO : create meetup
+
+                return $this->redirect()->toRoute('meetups/list');
+            }
+        }
+
         $form->prepare();
 
         return new ViewModel([
