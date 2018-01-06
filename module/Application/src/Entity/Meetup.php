@@ -43,6 +43,11 @@ class Meetup
      * @ORM\JoinTable(name="meetups_owners")
      */
     private $owners;
+    /**
+     * @ORM\ManyToMany(targetEntity="Application\Entity\Participant", inversedBy="meetups", cascade={"persist"})
+     * @ORM\JoinTable(name="meetups_participants")
+     */
+    private $participants;
 
     /**
      * Meetup constructor.
@@ -156,6 +161,26 @@ class Meetup
     public function setOwners(array $owners) : Meetup
     {
         $this->owners = $owners;
+
+        return $this;
+    }
+
+    /**
+     * @return PersistentCollection
+     */
+    public function getParticipants() : PersistentCollection
+    {
+        return $this->participants;
+    }
+
+    /**
+     * @param Participant[] $participants
+     *
+     * @return Meetup
+     */
+    public function setParticipants(array $participants) : Meetup
+    {
+        $this->participants = $participants;
 
         return $this;
     }
