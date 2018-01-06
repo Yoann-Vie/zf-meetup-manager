@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Application\Form;
 
+use Application\Validator\GreaterThanDate;
+use Zend\Filter\StringTrim;
 use Zend\Form\Element;
 use Zend\Form\Form;
 use Zend\InputFilter\InputFilterProviderInterface;
@@ -87,6 +89,11 @@ class MeetupForm extends Form implements InputFilterProviderInterface
     {
         return [
             'title' => [
+                'filters'  => [
+                    [
+                        'name' => StringTrim::class,
+                    ],
+                ],
                 'validators' => [
                     [
                         'name' => Validator\StringLength::class,
@@ -94,10 +101,15 @@ class MeetupForm extends Form implements InputFilterProviderInterface
                             'min' => 2,
                             'max' => 50,
                         ],
-                    ]
+                    ],
                 ],
             ],
             'description' => [
+                'filters'  => [
+                    [
+                        'name' => StringTrim::class,
+                    ],
+                ],
                 'validators' => [
                     [
                         'name' => Validator\StringLength::class,
@@ -105,7 +117,29 @@ class MeetupForm extends Form implements InputFilterProviderInterface
                             'min' => 2,
                             'max' => 2000,
                         ],
-                    ]
+                    ],
+                ],
+            ],
+            'start_date' => [
+                'filters'  => [
+                    [
+                        'name' => StringTrim::class,
+                    ],
+                ],
+            ],
+            'end_date' => [
+                'filters'  => [
+                    [
+                        'name' => StringTrim::class,
+                    ],
+                ],
+                'validators' => [
+                    [
+                        'name' => GreaterThanDate::class,
+                        'options' => [
+                            'min' => 'start_date',
+                        ],
+                    ],
                 ],
             ],
         ];
