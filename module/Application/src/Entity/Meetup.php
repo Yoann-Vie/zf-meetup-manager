@@ -39,12 +39,12 @@ class Meetup
      */
     private $endDate;
     /**
-     * @ORM\ManyToMany(targetEntity="Application\Entity\Owner", inversedBy="meetups", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="Application\Entity\Owner", inversedBy="meetups", cascade={"persist", "remove"})
      * @ORM\JoinTable(name="meetups_owners")
      */
     private $owners;
     /**
-     * @ORM\ManyToMany(targetEntity="Application\Entity\Participant", inversedBy="meetups", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="Application\Entity\Participant", inversedBy="meetups", cascade={"persist", "remove"})
      * @ORM\JoinTable(name="meetups_participants")
      */
     private $participants;

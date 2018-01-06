@@ -65,6 +65,18 @@ return [
                             ],
                         ],
                     ],
+                    'delete' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/delete/[:meetupId]',
+                            'constraints' => [
+                                'meetupId' => '[a-zA-Z0-9_-]+',
+                            ],
+                            'defaults' => [
+                                'action' => 'delete',
+                            ],
+                        ],
+                    ],
                 ],
             ],
         ],

@@ -31,7 +31,7 @@ class Participant
      */
     private $lastName;
     /**
-     * @ORM\ManyToMany(targetEntity="Application\Entity\Meetup", mappedBy="participants", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="Application\Entity\Meetup", mappedBy="participants", cascade={"persist", "remove"})
      */
     private $meetups;
 

@@ -35,7 +35,7 @@ class Owner
      */
     private $biography = '';
     /**
-     * @ORM\ManyToMany(targetEntity="Application\Entity\Meetup", mappedBy="owners", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="Application\Entity\Meetup", mappedBy="owners", cascade={"persist", "remove"})
      */
     private $meetups;
 
