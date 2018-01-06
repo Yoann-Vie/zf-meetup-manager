@@ -53,7 +53,7 @@ class MeetupController extends AbstractActionController
     }
 
     /**
-     * @return \Zend\Http\Response|ViewModel
+     * @return Response|ViewModel
      *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
@@ -87,7 +87,46 @@ class MeetupController extends AbstractActionController
     }
 
     /**
-     * @return \Zend\Http\Response|ViewModel
+     * @return Response|ViewModel
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function updateAction()
+    {
+        /** @var string $meetupId */
+        $meetupId = $this->params()->fromRoute('meetupId');
+        /** @var Meetup $meetup */
+        $meetup = $this->meetupRepository->find($meetupId);
+        // if meetup Id is invalid
+        if (!$meetup instanceof Meetup) {
+            return $this->redirect()->toRoute('meetups/list');
+        }
+
+        /** @var MeetupForm $form */
+        $form = $this->meetupForm;
+        $form->setData($this->meetupService->getMeetupDataAsArray($meetup));
+        /** @var Request $request */
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            $form->setData($request->getPost());
+            if ($form->isValid()) {
+                $this->meetupService->updateMeetup($meetup, $form->getData());
+
+                return $this->redirect()->toRoute('meetups/list');
+            }
+        }
+
+        $form->prepare();
+
+        return new ViewModel([
+            'form' => $form,
+            'meetup' => $meetup,
+        ]);
+    }
+
+    /**
+     * @return Response|ViewModel
      */
     public function detailsAction()
     {

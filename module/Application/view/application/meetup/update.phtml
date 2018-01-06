@@ -1,0 +1,20 @@
+<h2>Edit the meetup <?= $this->meetup->getTitle(); ?></h2><br>
+
+<p><a href="<?= $this->url('meetups/delete', ['meetupId' => $this->meetup->getId()]); ?>">Delete</a></p>
+<p><a href="<?= $this->url('meetups/list'); ?>">All Meetups</a></p>
+<hr>
+
+<?php /** @var \Zend\Form\Form $form */ ?>
+<?php $form = $this->form; ?>
+
+<?= $this->form()->openTag($form); ?>
+    <?= $this->formRow($form->get('title')); ?><br>
+    <?= $this->formRow($form->get('description')); ?><br>
+    <?= $this->formRow($form->get('start_date')); ?><span>ex : 2018-01-02 10:20:00</span><br>
+    <?= $this->formRow($form->get('end_date')); ?><span>ex : 2018-01-02 12:50:00</span><br>
+
+    <?= $this->formInput($form->get('submit')); ?>
+<?= $this->form()->closeTag($form); ?>
+
+<?php // TODO : add and remove owners ?>
+<?php // TODO : add and remove participants ?>

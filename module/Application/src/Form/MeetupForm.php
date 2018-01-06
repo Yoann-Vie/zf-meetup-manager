@@ -11,6 +11,9 @@ use Zend\Validator as Validator;
 
 class MeetupForm extends Form implements InputFilterProviderInterface
 {
+    /** @var string FORM_DATE_FORMAT */
+    const FORM_DATE_FORMAT = 'Y-m-d H:i:s';
+
     /**
      * @var string $name
      */
@@ -48,7 +51,7 @@ class MeetupForm extends Form implements InputFilterProviderInterface
             'name' => 'start_date',
             'options' => [
                 'label' => 'Meetup starting date',
-                'format' => 'Y-m-d H:i:s',
+                'format' => self::FORM_DATE_FORMAT,
             ],
             'attributes' => [
                 'step' => 'any',
@@ -59,7 +62,7 @@ class MeetupForm extends Form implements InputFilterProviderInterface
             'name' => 'end_date',
             'options' => [
                 'label' => 'Meetup end date',
-                'format' => 'Y-m-d H:i:s',
+                'format' => self::FORM_DATE_FORMAT,
             ],
             'attributes' => [
                 'step' => 'any',

@@ -44,6 +44,18 @@ return [
                             ],
                         ]
                     ],
+                    'update' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/edit/[:meetupId]',
+                            'constraints' => [
+                                'meetupId' => '[a-zA-Z0-9_-]+',
+                            ],
+                            'defaults' => [
+                                'action' => 'update',
+                            ],
+                        ],
+                    ],
                     'list' => [
                         'type' => Literal::class,
                         'options' => [
@@ -103,6 +115,7 @@ return [
             'layout/layout'              => __DIR__ . '/../view/layout/layout.phtml',
             'application/index/home'     => __DIR__ . '/../view/application/index/home.phtml',
             'application/meetup/add'     => __DIR__ . '/../view/application/meetup/add.phtml',
+            'application/meetup/update'  => __DIR__ . '/../view/application/meetup/update.phtml',
             'application/meetup/list'    => __DIR__ . '/../view/application/meetup/list.phtml',
             'application/meetup/details' => __DIR__ . '/../view/application/meetup/details.phtml',
             'error/404'                  => __DIR__ . '/../view/error/404.phtml',

@@ -49,4 +49,18 @@ class MeetupRepository extends EntityRepository
         $entityManager->remove($meetup);
         $entityManager->flush();
     }
+
+    /**
+     * @param Meetup $meetup
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function update(Meetup $meetup)
+    {
+        /** @var EntityManager $entityManager */
+        $entityManager = $this->getEntityManager();
+        $entityManager->persist($meetup);
+        $entityManager->flush();
+    }
 }
