@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Application\Controller;
 
 use Application\Entity\Meetup;
+use Application\Form\MeetupForm;
 use Application\Repository\MeetupRepository;
 use Doctrine\ORM\EntityManager;
 use Psr\Container\ContainerInterface;
@@ -30,7 +31,9 @@ final class MeetupControllerFactory
         $entityManager = $container->get(EntityManager::class);
         /** @var MeetupRepository $meetupRepository */
         $meetupRepository = $entityManager->getRepository(Meetup::class);
+        /** @var MeetupForm $meetupForm */
+        $meetupForm = $container->get(MeetupForm::class);
 
-        return new MeetupController($meetupRepository);
+        return new MeetupController($meetupRepository, $meetupForm);
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Application\Controller;
 
+use Application\Form\MeetupForm;
 use Application\Repository\MeetupRepository;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
@@ -16,22 +17,18 @@ class MeetupController extends AbstractActionController
 {
     /** @var MeetupRepository $meetupRepository */
     private $meetupRepository;
+    /** @var MeetupForm $meetupForm */
+    private $meetupForm;
 
     /**
      * MeetupController constructor.
      * @param MeetupRepository $meetupRepository
+     * @param MeetupForm $meetupForm
      */
-    public function __construct(MeetupRepository $meetupRepository)
+    public function __construct(MeetupRepository $meetupRepository, MeetupForm $meetupForm)
     {
         $this->meetupRepository = $meetupRepository;
-    }
-
-    /**
-     * @return ViewModel
-     */
-    public function indexAction() : ViewModel
-    {
-        return new ViewModel();
+        $this->meetupForm = $meetupForm;
     }
 
     /**
@@ -47,6 +44,11 @@ class MeetupController extends AbstractActionController
      */
     public function addAction()
     {
-        return new ViewModel();
+        $form = $this->meetupForm;
+        $form->prepare();
+
+        return new ViewModel([
+            'form' => $form,
+        ]);
     }
 }
