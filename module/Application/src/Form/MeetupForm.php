@@ -126,6 +126,14 @@ class MeetupForm extends Form implements InputFilterProviderInterface
                         'name' => StringTrim::class,
                     ],
                 ],
+                'validators' => [
+                    [
+                        'name' => GreaterThanDate::class,
+                        'options' => [
+                            'min' => 'now',
+                        ],
+                    ],
+                ],
             ],
             'end_date' => [
                 'filters'  => [
