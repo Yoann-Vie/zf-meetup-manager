@@ -7,7 +7,6 @@
 
 namespace Application;
 
-use Application\Controller\IndexControllerFactory;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
@@ -22,17 +21,36 @@ return [
                     'route'    => '/',
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
-                        'action'     => 'index',
+                        'action'     => 'home',
                     ],
                 ],
             ],
-            'application' => [
-                'type'    => Segment::class,
+            'meetups' => [
+                'type' => Literal::class,
                 'options' => [
-                    'route'    => '/application[/:action]',
+                    'route'    => '/meetups',
                     'defaults' => [
-                        'controller' => Controller\IndexController::class,
-                        'action'     => 'index',
+                        'controller' => Controller\MeetupController::class,
+                    ],
+                ],
+                'child_routes' => [
+                    'add' => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route'    => '/new',
+                            'defaults' => [
+                                'action' => 'add',
+                            ],
+                        ]
+                    ],
+                    'list' => [
+                        'type' => Literal::class,
+                        'options' => [
+                            'route'    => '/list',
+                            'defaults' => [
+                                'action' => 'list',
+                            ],
+                        ]
                     ],
                 ],
             ],
@@ -40,7 +58,8 @@ return [
     ],
     'controllers' => [
         'factories' => [
-            Controller\IndexController::class => IndexControllerFactory::class,
+            Controller\IndexController::class => InvokableFactory::class,
+            Controller\MeetupController::class => Controller\MeetupControllerFactory::class,
         ],
     ],
     'view_manager' => [
@@ -51,7 +70,9 @@ return [
         'exception_template'       => 'error/index',
         'template_map' => [
             'layout/layout'           => __DIR__ . '/../view/layout/layout.phtml',
-            'application/index/index' => __DIR__ . '/../view/application/index/index.phtml',
+            'application/index/home'  => __DIR__ . '/../view/application/index/home.phtml',
+            'application/meetup/add'  => __DIR__ . '/../view/application/index/home.phtml',
+            'application/meetup/list' => __DIR__ . '/../view/application/index/home.phtml',
             'error/404'               => __DIR__ . '/../view/error/404.phtml',
             'error/index'             => __DIR__ . '/../view/error/index.phtml',
         ],

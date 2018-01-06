@@ -10,27 +10,27 @@ use Doctrine\ORM\EntityManager;
 use Psr\Container\ContainerInterface;
 
 /**
- * Class IndexControllerFactory
+ * Class MeetupControllerFactory
  * @package Application\Controller
  */
-final class IndexControllerFactory
+final class MeetupControllerFactory
 {
 
     /**
      * @param ContainerInterface $container
      *
-     * @return IndexController
+     * @return MeetupController
      *
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function __invoke(ContainerInterface $container) : IndexController
+    public function __invoke(ContainerInterface $container) : MeetupController
     {
         /* @var $entityManager EntityManager */
         $entityManager = $container->get(EntityManager::class);
         /** @var MeetupRepository $meetupRepository */
         $meetupRepository = $entityManager->getRepository(Meetup::class);
 
-        return new IndexController($meetupRepository);
+        return new MeetupController($meetupRepository);
     }
 }
