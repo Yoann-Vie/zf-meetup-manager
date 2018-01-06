@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Application\Controller;
 
+use Application\Entity\Meetup;
 use Application\Form\MeetupForm;
 use Application\Repository\MeetupRepository;
 use Application\Service\MeetupService;
@@ -42,7 +43,12 @@ class MeetupController extends AbstractActionController
      */
     public function listAction() : ViewModel
     {
-        return new ViewModel();
+        /** @var Meetup[] $meetups */
+        $meetups = $this->meetupRepository->findAll();
+
+        return new ViewModel([
+            'meetups' => $meetups,
+        ]);
     }
 
     /**

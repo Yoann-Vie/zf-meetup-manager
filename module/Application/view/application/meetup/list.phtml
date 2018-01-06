@@ -1,0 +1,12 @@
+<h2>All Meetups</h2><br>
+
+<p><a href="<?= $this->url('meetups/add'); ?>">Add a new Meetup</a></p>
+
+<?php /** @var \Application\Entity\Meetup $meetup */ ?>
+<?php foreach ($this->meetups as $meetup): ?>
+    <hr>
+    <h4><?= $meetup->getTitle(); ?></h4>
+    <p><?= $meetup->getDescription(); ?></p>
+    <p>Beginning : <span><?= $meetup->getStartDate()->format(\Application\Service\MeetupService::DISPLAY_DATE_FORMAT); ?></span></p>
+    <p>End : <span><?= $meetup->getEndDate()->format( \Application\Service\MeetupService::DISPLAY_DATE_FORMAT); ?></span></p>
+<?php endforeach; ?>

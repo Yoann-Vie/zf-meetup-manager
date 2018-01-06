@@ -9,6 +9,10 @@ use Application\Repository\MeetupRepository;
 
 class MeetupService
 {
+
+    /** @var string DISPLAY_DATE_FORMAT */
+    const DISPLAY_DATE_FORMAT = 'l, d F Y, H:i';
+
     /**
      * @var MeetupRepository $meetupRepository
      */

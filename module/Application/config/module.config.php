@@ -79,7 +79,7 @@ return [
             'layout/layout'           => __DIR__ . '/../view/layout/layout.phtml',
             'application/index/home'  => __DIR__ . '/../view/application/index/home.phtml',
             'application/meetup/add'  => __DIR__ . '/../view/application/meetup/add.phtml',
-            'application/meetup/list' => __DIR__ . '/../view/application/index/home.phtml',
+            'application/meetup/list' => __DIR__ . '/../view/application/meetup/list.phtml',
             'error/404'               => __DIR__ . '/../view/error/404.phtml',
             'error/index'             => __DIR__ . '/../view/error/index.phtml',
         ],
