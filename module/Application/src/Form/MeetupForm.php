@@ -169,6 +169,9 @@ class MeetupForm extends Form implements InputFilterProviderInterface
                     ],
                 ],
             ],
+            'owner' => [
+                'required' => false,
+            ],
         ];
     }
 
