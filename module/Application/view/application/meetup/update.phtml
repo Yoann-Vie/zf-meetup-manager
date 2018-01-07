@@ -72,9 +72,8 @@
 <?php /** @var \Application\Entity\Participant $participant */ ?>
 <?php foreach ($this->meetup->getParticipants() as $participant): ?>
     <div>
+        <a href="<?= $this->url('participants/delete', ['meetupId' => $this->meetup->getId(), 'participantId' => $participant->getId()]); ?>">Delete</a>
         <p><?= $participant->getFullName(); ?></p>
         <p><?= $participant->getEmail(); ?></p>
     </div>
 <?php endforeach; ?>
-
-<?php // TODO : remove participants ?>

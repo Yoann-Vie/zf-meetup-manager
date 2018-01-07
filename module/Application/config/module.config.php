@@ -115,6 +115,30 @@ return [
                     ],
                 ],
             ],
+            'participants' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route'    => '/participants',
+                    'defaults' => [
+                        'controller' => Controller\ParticipantController::class,
+                    ],
+                ],
+                'child_routes' => [
+                    'delete' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/delete/[:meetupId]/[:participantId]',
+                            'constraints' => [
+                                'meetupId' => '[a-zA-Z0-9_-]+',
+                                'participantId' => '[a-zA-Z0-9_-]+',
+                            ],
+                            'defaults' => [
+                                'action' => 'delete',
+                            ],
+                        ],
+                    ],
+                ],
+            ],
         ],
     ],
     'controllers' => [
@@ -122,6 +146,7 @@ return [
             Controller\IndexController::class => InvokableFactory::class,
             Controller\MeetupController::class => Controller\MeetupControllerFactory::class,
             Controller\OwnerController::class => Controller\OwnerControllerFactory::class,
+            Controller\ParticipantController::class => Controller\ParticipantControllerFactory::class,
         ],
     ],
     'service_manager' => [

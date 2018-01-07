@@ -239,4 +239,23 @@ class Meetup
 
         return $this;
     }
+
+    /**
+     * @param Participant $participant
+     *
+     * @return Meetup
+     */
+    public function removeParticipant(Participant $participant) : Meetup
+    {
+        /** @var Participant $currentParticipant */
+        foreach ($this->participants as $key => $currentParticipant) {
+            if ($currentParticipant->getId() === $participant->getId()) {
+                unset($this->participants[$key]);
+
+                return $this;
+            }
+        }
+
+        return $this;
+    }
 }
