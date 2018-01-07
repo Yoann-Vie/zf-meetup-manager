@@ -1,5 +1,7 @@
 <h2><?= $this->meetup->getTitle() ?></h2><br>
 
+<a href="<?= $this->url('meetups/update', ['meetupId' => $this->meetup->getId()]); ?>">Edit this meetup</a>
+
 <p><a href="<?= $this->url('meetups/list'); ?>">Back to Meetups list</a></p>
 
 <p><?= $this->meetup->getDescription(); ?></p>
