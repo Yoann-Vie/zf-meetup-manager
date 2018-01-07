@@ -31,6 +31,10 @@ class Participant
      */
     private $lastName;
     /**
+     * @ORM\Column(type="string", length=60, nullable=false)
+     */
+    private $email;
+    /**
      * @ORM\ManyToMany(targetEntity="Application\Entity\Meetup", mappedBy="participants", cascade={"persist", "remove"})
      */
     private $meetups;
@@ -61,6 +65,14 @@ class Participant
     public function getLastName() : string
     {
         return $this->lastName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmail() : string
+    {
+        return $this->email;
     }
 
     /**
