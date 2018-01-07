@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Class Owner
  *
  * @package Application\Entity
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Application\Repository\OwnerRepository")
  * @ORM\Table(name="owners")
  */
 class Owner
@@ -56,6 +56,14 @@ class Owner
     /**
      * @return string
      */
+    public function getId() : string
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
     public function getFirstName() : string
     {
         return $this->firstName;
@@ -67,6 +75,14 @@ class Owner
     public function getLastName() : string
     {
         return $this->lastName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullName() : string
+    {
+        return $this->firstName . ' ' . $this->lastName;
     }
 
     /**

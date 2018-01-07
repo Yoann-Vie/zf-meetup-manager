@@ -72,7 +72,8 @@ class MeetupController extends AbstractActionController
                     $form->getData()['title'],
                     $form->getData()['description'],
                     $form->getData()['start_date'],
-                    $form->getData()['end_date']
+                    $form->getData()['end_date'],
+                    $form->getData()['owner']
                 );
 
                 return $this->redirect()->toRoute('meetups/list');

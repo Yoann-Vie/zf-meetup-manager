@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Application\Form;
 
+use Application\Entity\Owner;
+use Application\Repository\OwnerRepository;
 use Application\Validator\GreaterThanDate;
 use Zend\Filter\StringTrim;
 use Zend\Form\Element;
@@ -13,6 +15,7 @@ use Zend\Validator as Validator;
 
 class MeetupForm extends Form implements InputFilterProviderInterface
 {
+
     /** @var string FORM_DATE_FORMAT */
     const FORM_DATE_FORMAT = 'Y-m-d H:i:s';
 
@@ -20,14 +23,21 @@ class MeetupForm extends Form implements InputFilterProviderInterface
      * @var string $name
      */
     private $name = 'meetup';
+    /**
+     * @var OwnerRepository $ownerRepository
+     */
+    private $ownerRepository;
 
     /**
      * MeetupForm constructor.
      * @param null $name
      * @param array $options
+     * @param OwnerRepository $ownerRepository
      */
-    public function __construct($name = null, array $options = [])
+    public function __construct($name = null, array $options = [], OwnerRepository $ownerRepository)
     {
+        $this->ownerRepository = $ownerRepository;
+
         if (is_null($name)) {
             $this->name = $name;
         }
@@ -69,6 +79,15 @@ class MeetupForm extends Form implements InputFilterProviderInterface
             'attributes' => [
                 'step' => 'any',
             ],
+        ]);
+        $this->add([
+            'type' => Element\Select::class,
+            'name' => 'owner',
+            'options' => [
+                'label' => 'Meetup owner',
+                'empty_option' => 'Please select an owner ...',
+                'value_options' => $this->getOwnersForSelect(),
+            ]
         ]);
 
         $this->add([
@@ -151,5 +170,23 @@ class MeetupForm extends Form implements InputFilterProviderInterface
                 ],
             ],
         ];
+    }
+
+    /**
+     * Get values for owner select
+     * @return array
+     */
+    public function getOwnersForSelect() : array
+    {
+        /** @var array $owners */
+        $owners = $this->ownerRepository->getOwners();
+        /** @var array $values */
+        $values = [];
+        /** @var Owner $owner */
+        foreach ($owners as $owner) {
+            $values[$owner->getId()] = $owner->getFullName();
+        }
+
+        return $values;
     }
 }

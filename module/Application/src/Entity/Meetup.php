@@ -174,6 +174,18 @@ class Meetup
     }
 
     /**
+     * @param Owner $owner
+     *
+     * @return Meetup
+     */
+    public function addOwner(Owner $owner) : Meetup
+    {
+        $this->owners[] = $owner;
+
+        return $this;
+    }
+
+    /**
      * @return PersistentCollection
      */
     public function getParticipants() : PersistentCollection

@@ -2,39 +2,35 @@
 
 declare(strict_types=1);
 
-namespace Application\Service;
+namespace Application\Form;
 
-use Application\Entity\Meetup;
 use Application\Entity\Owner;
-use Application\Repository\MeetupRepository;
 use Application\Repository\OwnerRepository;
 use Doctrine\ORM\EntityManager;
 use Psr\Container\ContainerInterface;
 
 /**
- * Class MeetupServiceFactory
- * @package Application\Service
+ * Class MeetupFormFactory
+ * @package Application\Form
  */
-class MeetupServiceFactory
+class MeetupFormFactory
 {
 
     /**
      * @param ContainerInterface $container
      *
-     * @return MeetupService
+     * @return MeetupForm
      *
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function __invoke(ContainerInterface $container) : MeetupService
+    public function __invoke(ContainerInterface $container) : MeetupForm
     {
         /* @var $entityManager EntityManager */
         $entityManager = $container->get(EntityManager::class);
-        /** @var MeetupRepository $meetupRepository */
-        $meetupRepository = $entityManager->getRepository(Meetup::class);
         /** @var OwnerRepository $ownerRepository */
         $ownerRepository = $entityManager->getRepository(Owner::class);
 
-        return new MeetupService($meetupRepository, $ownerRepository);
+        return new MeetupForm(null, [], $ownerRepository);
     }
 }

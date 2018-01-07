@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Application\Service;
 
 use Application\Entity\Meetup;
+use Application\Entity\Owner;
 use Application\Form\MeetupForm;
 use Application\Repository\MeetupRepository;
+use Application\Repository\OwnerRepository;
 
 class MeetupService
 {
@@ -18,29 +20,38 @@ class MeetupService
      * @var MeetupRepository $meetupRepository
      */
     private $meetupRepository;
+    /**
+     * @var OwnerRepository $ownerRepository
+     */
+    private $ownerRepository;
 
     /**
      * MeetupService constructor.
      * @param MeetupRepository $meetupRepository
+     * @param OwnerRepository $ownerRepository
      */
-    function __construct(MeetupRepository $meetupRepository)
+    function __construct(MeetupRepository $meetupRepository, OwnerRepository $ownerRepository)
     {
         $this->meetupRepository = $meetupRepository;
+        $this->ownerRepository = $ownerRepository;
     }
 
     /**
      * @param string $title
      * @param string $description
-     * @param $startDate
-     * @param $endDate
+     * @param string $startDate
+     * @param string $endDate
+     * @param string $ownerId
      *
      * @return Meetup
      *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function createMeetup(string $title, string $description, string $startDate, string $endDate) : Meetup
+    public function createMeetup(string $title, string $description, string $startDate, string $endDate, string $ownerId) : Meetup
     {
+        /** @var Owner $owner */
+        $owner = $this->ownerRepository->find($ownerId);
         /** @var \DateTime $startDate */
         $startDate = new \DateTime($startDate);
         /** @var \DateTime $endDate */
@@ -48,6 +59,7 @@ class MeetupService
 
         /** @var Meetup $meetup */
         $meetup = new Meetup($title, $description, $startDate, $endDate);
+        $meetup->addOwner($owner);
         $this->meetupRepository->create($meetup);
 
         return $meetup;
