@@ -86,6 +86,14 @@ class Owner
     }
 
     /**
+     * @return string
+     */
+    public function getBiography() : string
+    {
+        return $this->biography;
+    }
+
+    /**
      * @return PersistentCollection
      */
     public function getMeetups() : PersistentCollection

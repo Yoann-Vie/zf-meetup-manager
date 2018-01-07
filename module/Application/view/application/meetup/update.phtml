@@ -22,5 +22,16 @@
     <?= $this->formInput($form->get('submit')); ?>
 <?= $this->form()->closeTag($form); ?>
 
+<hr>
+
+<h4>Meetup owners</h4>
+<?php /** @var \Application\Entity\Owner $owner */ ?>
+<?php foreach ($this->meetup->getOwners() as $owner): ?>
+    <div>
+        <p><?= $owner->getFullName(); ?></p>
+        <p><?= $owner->getBiography(); ?></p>
+    </div>
+<?php endforeach; ?>
+
 <?php // TODO : add and remove owners ?>
 <?php // TODO : add and remove participants ?>
