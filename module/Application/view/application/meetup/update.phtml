@@ -28,6 +28,7 @@
 <?php /** @var \Application\Entity\Owner $owner */ ?>
 <?php foreach ($this->meetup->getOwners() as $owner): ?>
     <div>
+        <a href="<?= $this->url('owners/delete', ['meetupId' => $this->meetup->getId(), 'ownerId' => $owner->getId()]); ?>">Delete</a>
         <p><?= $owner->getFullName(); ?></p>
         <p><?= $owner->getBiography(); ?></p>
     </div>

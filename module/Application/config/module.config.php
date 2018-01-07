@@ -91,12 +91,37 @@ return [
                     ],
                 ],
             ],
+            'owners' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route'    => '/owners',
+                    'defaults' => [
+                        'controller' => Controller\OwnerController::class,
+                    ],
+                ],
+                'child_routes' => [
+                    'delete' => [
+                        'type' => Segment::class,
+                        'options' => [
+                            'route' => '/delete/[:meetupId]/[:ownerId]',
+                            'constraints' => [
+                                'meetupId' => '[a-zA-Z0-9_-]+',
+                                'ownerId' => '[a-zA-Z0-9_-]+',
+                            ],
+                            'defaults' => [
+                                'action' => 'delete',
+                            ],
+                        ],
+                    ],
+                ],
+            ],
         ],
     ],
     'controllers' => [
         'factories' => [
             Controller\IndexController::class => InvokableFactory::class,
             Controller\MeetupController::class => Controller\MeetupControllerFactory::class,
+            Controller\OwnerController::class => Controller\OwnerControllerFactory::class,
         ],
     ],
     'service_manager' => [

@@ -186,6 +186,25 @@ class Meetup
     }
 
     /**
+     * @param Owner $owner
+     *
+     * @return Meetup
+     */
+    public function removeOwner(Owner $owner) : Meetup
+    {
+        /** @var Owner $currentOwner */
+        foreach ($this->owners as $key => $currentOwner) {
+            if ($currentOwner->getId() === $owner->getId()) {
+                unset($this->owners[$key]);
+
+                return $this;
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      * @return PersistentCollection
      */
     public function getParticipants() : PersistentCollection
