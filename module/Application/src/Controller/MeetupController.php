@@ -130,24 +130,40 @@ class MeetupController extends AbstractActionController
             return $this->redirect()->toRoute('meetups/list');
         }
 
-        /** @var MeetupForm $form */
-        $form = $this->meetupForm;
-        $form->setData($this->meetupService->getMeetupDataAsArray($meetup));
+        /** @var MeetupForm $meetupForm */
+        $meetupForm = $this->meetupForm;
+        /** @var OwnerForm $ownerForm */
+        $ownerForm = $this->ownerForm;
+        $meetupForm->setData($this->meetupService->getMeetupDataAsArray($meetup));
         /** @var Request $request */
         $request = $this->getRequest();
         if ($request->isPost()) {
-            $form->setData($request->getPost());
-            if ($form->isValid()) {
-                $this->meetupService->updateMeetup($meetup, $form->getData());
+            $meetupForm->setData($request->getPost());
+            $ownerForm->setData($request->getPost());
+
+            // If owner form is submitted and valid
+            if ($ownerForm->isValid()) {
+                $this->ownerService->createOwner(
+                    $ownerForm->getData()['firstname'],
+                    $ownerForm->getData()['lastname'],
+                    $ownerForm->getData()['biography']
+                );
+
+                return $this->redirect()->toRoute('meetups/update', ['meetupId' => $meetupId]);
+            }
+            // If meetup form is submitted and valid
+            if ($meetupForm->isValid()) {
+                $this->meetupService->updateMeetup($meetup, $meetupForm->getData());
 
                 return $this->redirect()->toRoute('meetups/list');
             }
         }
 
-        $form->prepare();
+        $meetupForm->prepare();
 
         return new ViewModel([
-            'form' => $form,
+            'meetupForm' => $meetupForm,
+            'ownerForm' => $ownerForm,
             'meetup' => $meetup,
         ]);
     }
