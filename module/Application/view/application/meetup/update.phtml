@@ -21,6 +21,12 @@
 <?php $meetupForm = $this->meetupForm; ?>
 
 <?= $this->form()->openTag($meetupForm); ?>
+    <h4>Add an additional owner to the meetup</h4><br>
+    <?= $this->formRow($meetupForm->get('owner')); ?><br>
+    <?= $this->formInput($meetupForm->get('submit')); ?><br>
+    <hr>
+
+    <h4>Edit the meetup information</h4><br>
     <?= $this->formRow($meetupForm->get('title')); ?><br>
     <?= $this->formRow($meetupForm->get('description')); ?><br>
 

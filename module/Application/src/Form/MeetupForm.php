@@ -94,7 +94,7 @@ class MeetupForm extends Form implements InputFilterProviderInterface
             'type' => Element\Submit::class,
             'name' => 'submit',
             'attributes' => [
-                'value' => 'Schedule this Meetup',
+                'value' => 'Submit',
             ],
         ]);
     }

@@ -155,7 +155,7 @@ class MeetupController extends AbstractActionController
             if ($meetupForm->isValid()) {
                 $this->meetupService->updateMeetup($meetup, $meetupForm->getData());
 
-                return $this->redirect()->toRoute('meetups/list');
+                return $this->redirect()->toRoute('meetups/update', ['meetupId' => $meetupId]);
             }
         }
 

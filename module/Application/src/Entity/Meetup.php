@@ -180,7 +180,9 @@ class Meetup
      */
     public function addOwner(Owner $owner) : Meetup
     {
-        $this->owners[] = $owner;
+        if (!$this->owners->contains($owner)) {
+            $this->owners[] = $owner;
+        }
 
         return $this;
     }

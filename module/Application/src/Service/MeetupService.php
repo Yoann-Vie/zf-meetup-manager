@@ -91,6 +91,13 @@ class MeetupService
         if (isset($options['end_date'])) {
             $meetup->setEndDate(new \DateTime($options['end_date']));
         }
+        if (isset($options['owner'])) {
+            /** @var Owner $owner */
+            $owner = $this->ownerRepository->find($options['owner']);
+            if ($owner instanceof Owner) {
+                $meetup->addOwner($owner);
+            }
+        }
 
         $this->meetupRepository->update($meetup);
 
