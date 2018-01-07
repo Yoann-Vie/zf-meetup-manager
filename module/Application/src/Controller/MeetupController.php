@@ -5,11 +5,14 @@ declare(strict_types=1);
 namespace Application\Controller;
 
 use Application\Entity\Meetup;
+use Application\Entity\Participant;
 use Application\Form\MeetupForm;
 use Application\Form\OwnerForm;
+use Application\Form\ParticipantForm;
 use Application\Repository\MeetupRepository;
 use Application\Service\MeetupService;
 use Application\Service\OwnerService;
+use Application\Service\ParticipantService;
 use Zend\Http\Request;
 use Zend\Http\Response;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -27,10 +30,14 @@ class MeetupController extends AbstractActionController
     private $meetupForm;
     /** @var OwnerForm $ownerForm */
     private $ownerForm;
+    /** @var ParticipantForm $participantForm */
+    private $participantForm;
     /** @var MeetupService $meetupService */
     private $meetupService;
     /** @var OwnerService $ownerService */
     private $ownerService;
+    /** @var ParticipantService $participantService */
+    private $participantService;
 
     /**
      * MeetupController constructor.
@@ -39,14 +46,26 @@ class MeetupController extends AbstractActionController
      * @param MeetupService $meetupService
      * @param OwnerForm $ownerForm
      * @param OwnerService $ownerService
+     * @param ParticipantForm $participantForm
+     * @param ParticipantService $participantService
      */
-    public function __construct(MeetupRepository $meetupRepository, MeetupForm $meetupForm, MeetupService $meetupService, OwnerForm $ownerForm, OwnerService $ownerService)
+    public function __construct(
+        MeetupRepository $meetupRepository,
+        MeetupForm $meetupForm,
+        MeetupService $meetupService,
+        OwnerForm $ownerForm,
+        OwnerService $ownerService,
+        ParticipantForm $participantForm,
+        ParticipantService $participantService
+    )
     {
         $this->meetupRepository = $meetupRepository;
         $this->meetupForm = $meetupForm;
         $this->ownerForm = $ownerForm;
+        $this->participantForm = $participantForm;
         $this->meetupService = $meetupService;
         $this->ownerService = $ownerService;
+        $this->participantService = $participantService;
     }
 
     /**
@@ -134,12 +153,15 @@ class MeetupController extends AbstractActionController
         $meetupForm = $this->meetupForm;
         /** @var OwnerForm $ownerForm */
         $ownerForm = $this->ownerForm;
+        /** @var ParticipantForm $participantForm */
+        $participantForm = $this->participantForm;
         $meetupForm->setData($this->meetupService->getMeetupDataAsArray($meetup));
         /** @var Request $request */
         $request = $this->getRequest();
         if ($request->isPost()) {
             $meetupForm->setData($request->getPost());
             $ownerForm->setData($request->getPost());
+            $participantForm->setData($request->getPost());
 
             // If owner form is submitted and valid
             if ($ownerForm->isValid()) {
@@ -148,6 +170,19 @@ class MeetupController extends AbstractActionController
                     $ownerForm->getData()['lastname'],
                     $ownerForm->getData()['biography']
                 );
+
+                return $this->redirect()->toRoute('meetups/update', ['meetupId' => $meetupId]);
+            }
+            // If participant form is submitted and valid
+            if ($participantForm->isValid()) {
+                /** @var Participant $participant */
+                $participant = $this->participantService->createParticipant(
+                    $participantForm->getData()['participant_firstname'],
+                    $participantForm->getData()['participant_lastname'],
+                    $participantForm->getData()['participant_email']
+                );
+                $meetup->addParticipant($participant);
+                $this->meetupRepository->update($meetup);
 
                 return $this->redirect()->toRoute('meetups/update', ['meetupId' => $meetupId]);
             }
@@ -164,6 +199,7 @@ class MeetupController extends AbstractActionController
         return new ViewModel([
             'meetupForm' => $meetupForm,
             'ownerForm' => $ownerForm,
+            'participantForm' => $participantForm,
             'meetup' => $meetup,
         ]);
     }

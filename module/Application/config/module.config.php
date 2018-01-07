@@ -128,8 +128,10 @@ return [
         'factories' => [
             Form\MeetupForm::class => Form\MeetupFormFactory::class,
             Form\OwnerForm::class => InvokableFactory::class,
+            Form\ParticipantForm::class => InvokableFactory::class,
             Service\MeetupService::class => Service\MeetupServiceFactory::class,
             Service\OwnerService::class => Service\OwnerServiceFactory::class,
+            Service\ParticipantService::class => Service\ParticipantServiceFactory::class,
         ],
     ],
     'view_manager' => [

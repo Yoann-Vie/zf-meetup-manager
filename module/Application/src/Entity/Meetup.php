@@ -225,4 +225,18 @@ class Meetup
 
         return $this;
     }
+
+    /**
+     * @param Participant $participant
+     *
+     * @return Meetup
+     */
+    public function addParticipant(Participant $participant) : Meetup
+    {
+        if (!$this->participants->contains($participant)) {
+            $this->participants[] = $participant;
+        }
+
+        return $this;
+    }
 }

@@ -7,9 +7,11 @@ namespace Application\Controller;
 use Application\Entity\Meetup;
 use Application\Form\MeetupForm;
 use Application\Form\OwnerForm;
+use Application\Form\ParticipantForm;
 use Application\Repository\MeetupRepository;
 use Application\Service\MeetupService;
 use Application\Service\OwnerService;
+use Application\Service\ParticipantService;
 use Doctrine\ORM\EntityManager;
 use Psr\Container\ContainerInterface;
 
@@ -38,11 +40,23 @@ final class MeetupControllerFactory
         $meetupForm = $container->get(MeetupForm::class);
         /** @var OwnerForm $ownerForm */
         $ownerForm = $container->get(OwnerForm::class);
+        /** @var ParticipantForm $participantForm */
+        $participantForm = $container->get(ParticipantForm::class);
         /** @var MeetupService $meetupService */
         $meetupService = $container->get(MeetupService::class);
         /** @var OwnerService $ownerService */
         $ownerService = $container->get(OwnerService::class);
+        /** @var ParticipantService $participantService */
+        $participantService = $container->get(ParticipantService::class);
 
-        return new MeetupController($meetupRepository, $meetupForm, $meetupService, $ownerForm, $ownerService);
+        return new MeetupController(
+            $meetupRepository,
+            $meetupForm,
+            $meetupService,
+            $ownerForm,
+            $ownerService,
+            $participantForm,
+            $participantService
+        );
     }
 }

@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Class Participant
  *
  * @package Application\Entity
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Application\Repository\ParticipantRepository")
  * @ORM\Table(name="participants")
  */
 class Participant
@@ -43,12 +43,14 @@ class Participant
      * Participant constructor.
      * @param string $firstName
      * @param string $lastName
+     * @param string $email
      */
-    public function __construct(string $firstName, string $lastName)
+    public function __construct(string $firstName, string $lastName, string $email)
     {
         $this->id = Uuid::uuid4()->toString();
         $this->firstName = $firstName;
         $this->lastName = $lastName;
+        $this->email = $email;
     }
 
     /**

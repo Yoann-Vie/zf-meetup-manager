@@ -42,7 +42,7 @@ class OwnerRepository extends EntityRepository
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function delete(Owner $owner)
+    public function delete(Owner $owner) : void
     {
         /** @var EntityManager $entityManager */
         $entityManager = $this->getEntityManager();
@@ -56,7 +56,7 @@ class OwnerRepository extends EntityRepository
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function update(Owner $owner)
+    public function update(Owner $owner) : void
     {
         /** @var EntityManager $entityManager */
         $entityManager = $this->getEntityManager();

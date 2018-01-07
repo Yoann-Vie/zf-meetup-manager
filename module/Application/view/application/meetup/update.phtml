@@ -59,11 +59,11 @@
 <?php $participantForm = $this->participantForm; ?>
 <h4>Add a participant to the meetup</h4>
 <?= $this->form()->openTag($participantForm); ?>
-    <?= $this->formRow($participantForm->get('firstname')); ?><br>
-    <?= $this->formRow($participantForm->get('lastname')); ?><br>
-    <?= $this->formRow($participantForm->get('email')); ?><br>
+    <?= $this->formRow($participantForm->get('participant_firstname')); ?><br>
+    <?= $this->formRow($participantForm->get('participant_lastname')); ?><br>
+    <?= $this->formRow($participantForm->get('participant_email')); ?><br>
 
     <?= $this->formInput($participantForm->get('submit')); ?>
 <?= $this->form()->closeTag($participantForm); ?>
 
-<?php // TODO : add and remove participants ?>
+<?php // TODO : remove participants ?>
