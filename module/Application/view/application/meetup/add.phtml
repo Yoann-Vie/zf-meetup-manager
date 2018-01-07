@@ -3,24 +3,35 @@
 <p><a href="<?= $this->url('meetups/list'); ?>">All Meetups</a></p>
 <hr>
 
-<?php /** @var \Zend\Form\Form $form */ ?>
-<?php $form = $this->form; ?>
+<?php /** @var \Zend\Form\Form $ownerForm */ ?>
+<?php $ownerForm = $this->ownerForm; ?>
+<h4>If you want to register a new owner for your Meetup</h4>
+<?= $this->form()->openTag($ownerForm); ?>
+    <?= $this->formRow($ownerForm->get('firstname')); ?><br>
+    <?= $this->formRow($ownerForm->get('lastname')); ?><br>
+    <?= $this->formRow($ownerForm->get('biography')); ?><br>
 
-<?= $this->form()->openTag($form); ?>
-    <?= $this->formRow($form->get('owner')); ?><br>
+    <?= $this->formInput($ownerForm->get('submit')); ?>
+<?= $this->form()->closeTag($ownerForm); ?>
 
-    <?= $this->formRow($form->get('title')); ?><br>
-    <?= $this->formRow($form->get('description')); ?><br>
+<hr>
+
+<?php /** @var \Zend\Form\Form $meetupForm */ ?>
+<?php $meetupForm = $this->meetupForm; ?>
+<h4>Create your Meetup</h4>
+<?= $this->form()->openTag($meetupForm); ?>
+    <?= $this->formRow($meetupForm->get('owner')); ?><br>
+
+    <?= $this->formRow($meetupForm->get('title')); ?><br>
+    <?= $this->formRow($meetupForm->get('description')); ?><br>
 
     <?php /** @var DateTime $demoDate */ ?>
     <?php $demoDate = new DateTime(); ?>
-    <?= $this->formRow($form->get('start_date')); ?>
+    <?= $this->formRow($meetupForm->get('start_date')); ?>
     <span>ex : <?= $demoDate->format(\Application\Form\MeetupForm::FORM_DATE_FORMAT); ?></span><br>
     <?php $demoDate->add(new DateInterval('PT2H30M')); ?>
-    <?= $this->formRow($form->get('end_date')); ?>
+    <?= $this->formRow($meetupForm->get('end_date')); ?>
     <span>ex : <?= $demoDate->format(\Application\Form\MeetupForm::FORM_DATE_FORMAT); ?></span><br>
 
-    <?= $this->formInput($form->get('submit')); ?>
-<?= $this->form()->closeTag($form); ?>
-
-<?php // TODO : choose or add first owner  ?>
+    <?= $this->formInput($meetupForm->get('submit')); ?>
+<?= $this->form()->closeTag($meetupForm); ?>

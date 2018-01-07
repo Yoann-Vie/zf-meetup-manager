@@ -85,7 +85,7 @@ class MeetupForm extends Form implements InputFilterProviderInterface
             'name' => 'owner',
             'options' => [
                 'label' => 'Meetup owner',
-                'empty_option' => 'Please select an owner ...',
+                'empty_option' => 'Select an existing owner ...',
                 'value_options' => $this->getOwnersForSelect(),
             ]
         ]);
@@ -94,7 +94,7 @@ class MeetupForm extends Form implements InputFilterProviderInterface
             'type' => Element\Submit::class,
             'name' => 'submit',
             'attributes' => [
-                'value' => 'Submit',
+                'value' => 'Schedule this Meetup',
             ],
         ]);
     }

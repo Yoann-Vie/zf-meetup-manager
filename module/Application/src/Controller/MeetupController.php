@@ -6,8 +6,10 @@ namespace Application\Controller;
 
 use Application\Entity\Meetup;
 use Application\Form\MeetupForm;
+use Application\Form\OwnerForm;
 use Application\Repository\MeetupRepository;
 use Application\Service\MeetupService;
+use Application\Service\OwnerService;
 use Zend\Http\Request;
 use Zend\Http\Response;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -23,20 +25,28 @@ class MeetupController extends AbstractActionController
     private $meetupRepository;
     /** @var MeetupForm $meetupForm */
     private $meetupForm;
+    /** @var OwnerForm $ownerForm */
+    private $ownerForm;
     /** @var MeetupService $meetupService */
     private $meetupService;
+    /** @var OwnerService $ownerService */
+    private $ownerService;
 
     /**
      * MeetupController constructor.
      * @param MeetupRepository $meetupRepository
      * @param MeetupForm $meetupForm
      * @param MeetupService $meetupService
+     * @param OwnerForm $ownerForm
+     * @param OwnerService $ownerService
      */
-    public function __construct(MeetupRepository $meetupRepository, MeetupForm $meetupForm, MeetupService $meetupService)
+    public function __construct(MeetupRepository $meetupRepository, MeetupForm $meetupForm, MeetupService $meetupService, OwnerForm $ownerForm, OwnerService $ownerService)
     {
         $this->meetupRepository = $meetupRepository;
         $this->meetupForm = $meetupForm;
+        $this->ownerForm = $ownerForm;
         $this->meetupService = $meetupService;
+        $this->ownerService = $ownerService;
     }
 
     /**
@@ -60,30 +70,46 @@ class MeetupController extends AbstractActionController
      */
     public function addAction()
     {
-        /** @var MeetupForm $form */
-        $form = $this->meetupForm;
+        /** @var MeetupForm $meetupForm */
+        $meetupForm = $this->meetupForm;
+        /** @var OwnerForm $ownerForm */
+        $ownerForm = $this->ownerForm;
 
         /** @var Request $request */
         $request = $this->getRequest();
         if ($request->isPost()) {
-            $form->setData($request->getPost());
-            if ($form->isValid()) {
+            $meetupForm->setData($request->getPost());
+            $ownerForm->setData($request->getPost());
+
+            // If owner form is submitted and valid
+            if ($ownerForm->isValid()) {
+                $this->ownerService->createOwner(
+                    $ownerForm->getData()['firstname'],
+                    $ownerForm->getData()['lastname'],
+                    $ownerForm->getData()['biography']
+                );
+
+                return $this->redirect()->toRoute('meetups/add');
+            }
+            // If meetup form is submitted and valid
+            if ($meetupForm->isValid()) {
                 $this->meetupService->createMeetup(
-                    $form->getData()['title'],
-                    $form->getData()['description'],
-                    $form->getData()['start_date'],
-                    $form->getData()['end_date'],
-                    $form->getData()['owner']
+                    $meetupForm->getData()['title'],
+                    $meetupForm->getData()['description'],
+                    $meetupForm->getData()['start_date'],
+                    $meetupForm->getData()['end_date'],
+                    $meetupForm->getData()['owner']
                 );
 
                 return $this->redirect()->toRoute('meetups/list');
             }
         }
 
-        $form->prepare();
+        $meetupForm->prepare();
 
         return new ViewModel([
-            'form' => $form,
+            'meetupForm' => $meetupForm,
+            'ownerForm' => $ownerForm,
         ]);
     }
 

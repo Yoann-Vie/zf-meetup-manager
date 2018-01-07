@@ -8,7 +8,6 @@
 namespace Application;
 
 use Application\Form as Form;
-use Application\Service\MeetupServiceFactory;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
@@ -103,7 +102,9 @@ return [
     'service_manager' => [
         'factories' => [
             Form\MeetupForm::class => Form\MeetupFormFactory::class,
-            Service\MeetupService::class => MeetupServiceFactory::class,
+            Form\OwnerForm::class => InvokableFactory::class,
+            Service\MeetupService::class => Service\MeetupServiceFactory::class,
+            Service\OwnerService::class => Service\OwnerServiceFactory::class,
         ],
     ],
     'view_manager' => [

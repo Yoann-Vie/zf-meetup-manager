@@ -59,7 +59,10 @@ class MeetupService
 
         /** @var Meetup $meetup */
         $meetup = new Meetup($title, $description, $startDate, $endDate);
-        $meetup->addOwner($owner);
+        if ($owner instanceof Owner) {
+            $meetup->addOwner($owner);
+        }
+
         $this->meetupRepository->create($meetup);
 
         return $meetup;
