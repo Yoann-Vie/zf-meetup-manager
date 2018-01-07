@@ -19,4 +19,14 @@
 </div>
 <?php endforeach; ?>
 
-<?php // TODO : list participants ?>
+<hr>
+
+<h4>Meetup participants</h4>
+<?php /** @var \Application\Entity\Participant $participant */ ?>
+<?php foreach ($this->meetup->getParticipants() as $participant): ?>
+<div>
+    <p><?= $participant->getFullName(); ?></p>
+    <p><?= $participant->getEmail(); ?></p>
+</div>
+<?php endforeach; ?>
+

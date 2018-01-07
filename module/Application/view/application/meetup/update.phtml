@@ -1,4 +1,4 @@
-<h2>Edit the meetup <?= $this->meetup->getTitle(); ?></h2><br>
+<h2>Edit the meetup : <?= $this->meetup->getTitle(); ?></h2><br>
 
 <p><a href="<?= $this->url('meetups/delete', ['meetupId' => $this->meetup->getId()]); ?>">Delete</a></p>
 <p><a href="<?= $this->url('meetups/list'); ?>">All Meetups</a></p>
@@ -65,5 +65,16 @@
 
     <?= $this->formInput($participantForm->get('submit')); ?>
 <?= $this->form()->closeTag($participantForm); ?>
+
+<hr>
+
+<h4>Meetup participants</h4>
+<?php /** @var \Application\Entity\Participant $participant */ ?>
+<?php foreach ($this->meetup->getParticipants() as $participant): ?>
+    <div>
+        <p><?= $participant->getFullName(); ?></p>
+        <p><?= $participant->getEmail(); ?></p>
+    </div>
+<?php endforeach; ?>
 
 <?php // TODO : remove participants ?>

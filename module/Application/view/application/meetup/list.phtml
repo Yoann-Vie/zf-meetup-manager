@@ -5,10 +5,9 @@
 <?php /** @var \Application\Entity\Meetup $meetup */ ?>
 <?php foreach ($this->meetups as $meetup): ?>
     <hr>
-    <h4><?= $meetup->getTitle(); ?></h4>
+    <h4><a href="<?= $this->url('meetups/details', ['meetupId' => $meetup->getId()]); ?>"><?= $meetup->getTitle(); ?></a></h4>
     <a href="<?= $this->url('meetups/update', ['meetupId' => $meetup->getId()]); ?>">Edit</a>
     <a href="<?= $this->url('meetups/delete', ['meetupId' => $meetup->getId()]); ?>">Delete</a>
-    <a href="<?= $this->url('meetups/details', ['meetupId' => $meetup->getId()]); ?>">Details</a>
 
     <p><?= $meetup->getDescription(); ?></p>
     <p>Beginning : <span><?= $meetup->getStartDate()->format(\Application\Service\MeetupService::DISPLAY_DATE_FORMAT); ?></span></p>

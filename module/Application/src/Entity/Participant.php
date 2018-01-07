@@ -72,6 +72,14 @@ class Participant
     /**
      * @return string
      */
+    public function getFullName() : string
+    {
+        return $this->firstName . ' ' . $this->lastName;
+    }
+
+    /**
+     * @return string
+     */
     public function getEmail() : string
     {
         return $this->email;
