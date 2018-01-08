@@ -1,12 +1,11 @@
 <h2><?= $this->meetup->getTitle() ?></h2><br>
 
-<a href="<?= $this->url('meetups/update', ['meetupId' => $this->meetup->getId()]); ?>">Edit this meetup</a>
-
-<p><a href="<?= $this->url('meetups/list'); ?>">Back to Meetups list</a></p>
-
+<a class="btn btn-warning" href="<?= $this->url('meetups/update', ['meetupId' => $this->meetup->getId()]); ?>">Edit</a>
+<a class="btn btn-info" href="<?= $this->url('meetups/list'); ?>">All Meetups</a>
+<br><br>
 <p><?= $this->meetup->getDescription(); ?></p>
-<p>Beginning : <span><?= $this->meetup->getStartDate()->format(\Application\Service\MeetupService::DISPLAY_DATE_FORMAT); ?></span></p>
-<p>End : <span><?= $this->meetup->getEndDate()->format( \Application\Service\MeetupService::DISPLAY_DATE_FORMAT); ?></span></p>
+<p><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> <u>Start</u> : <span><?= $this->meetup->getStartDate()->format(\Application\Service\MeetupService::DISPLAY_DATE_FORMAT); ?></span></p>
+<p><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> <u>End</u> : <span><?= $this->meetup->getEndDate()->format( \Application\Service\MeetupService::DISPLAY_DATE_FORMAT); ?></span></p>
 
 <hr>
 
