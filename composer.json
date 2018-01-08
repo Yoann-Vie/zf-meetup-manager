@@ -19,7 +19,8 @@
         "doctrine/doctrine-orm-module": "^1.1",
         "ramsey/uuid": "^3.7",
         "zendframework/zend-form": "^2.11",
-        "zendframework/zend-i18n": "^2.7"
+        "zendframework/zend-i18n": "^2.7",
+        "zendframework/zend-navigation": "^2.8"
     },
     "autoload": {
         "psr-4": {

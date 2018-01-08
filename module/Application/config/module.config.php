@@ -9,6 +9,7 @@ namespace Application;
 
 use Application\Form as Form;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
+use Zend\Navigation\Service\DefaultNavigationFactory;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
@@ -143,6 +144,7 @@ return [
     ],
     'controllers' => [
         'factories' => [
+            'navigation' => DefaultNavigationFactory::class,
             Controller\IndexController::class => InvokableFactory::class,
             Controller\MeetupController::class => Controller\MeetupControllerFactory::class,
             Controller\OwnerController::class => Controller\OwnerControllerFactory::class,
@@ -157,6 +159,22 @@ return [
             Service\MeetupService::class => Service\MeetupServiceFactory::class,
             Service\OwnerService::class => Service\OwnerServiceFactory::class,
             Service\ParticipantService::class => Service\ParticipantServiceFactory::class,
+        ],
+    ],
+    'navigation' => [
+        'default' => [
+            [
+                'label' => 'Home',
+                'route' => 'home',
+            ],
+            [
+                'label' => 'Meetups List',
+                'route' => 'meetups/list',
+            ],
+            [
+                'label' => 'Add a Meetup',
+                'route' => 'meetups/add',
+            ],
         ],
     ],
     'view_manager' => [
