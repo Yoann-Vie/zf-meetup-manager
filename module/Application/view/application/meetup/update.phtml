@@ -1,14 +1,15 @@
 <h2>
     Edit the meetup : <a href="<?= $this->url('meetups/details', ['meetupId' => $meetup->getId()]); ?>"><?= $this->meetup->getTitle(); ?></a>
-</h2>
+</h2><br>
 
-<p><a href="<?= $this->url('meetups/delete', ['meetupId' => $this->meetup->getId()]); ?>">Delete</a></p>
-<p><a href="<?= $this->url('meetups/list'); ?>">All Meetups</a></p>
+<a class="btn btn-info" href="<?= $this->url('meetups/list'); ?>">All Meetups</a>
+<a class="btn btn-danger" href="<?= $this->url('meetups/delete', ['meetupId' => $this->meetup->getId()]); ?>">Delete</a>
 <hr>
 
 <?php /** @var \Zend\Form\Form $ownerForm */ ?>
 <?php $ownerForm = $this->ownerForm; ?>
-<h4>If you want to register a new owner for your Meetups</h4>
+<h3><span class="label label-default">If you want to register a new owner for your Meetups</span></h3>
+<br>
 <?= $this->form()->openTag($ownerForm); ?>
     <?= $this->formRow($ownerForm->get('firstname')); ?><br>
     <?= $this->formRow($ownerForm->get('lastname')); ?><br>
@@ -23,33 +24,42 @@
 <?php $meetupForm = $this->meetupForm; ?>
 
 <?= $this->form()->openTag($meetupForm); ?>
-    <h4>Add an additional owner to the meetup</h4><br>
+    <h3><span class="label label-default">Add an additional owner to the meetup</span></h3><br>
     <?= $this->formRow($meetupForm->get('owner')); ?><br>
     <?= $this->formInput($meetupForm->get('submit')); ?><br>
     <hr>
 
-    <h4>Edit the meetup information</h4><br>
+    <h3><span class="label label-default">Edit the meetup information</span></h3><br>
     <?= $this->formRow($meetupForm->get('title')); ?><br>
     <?= $this->formRow($meetupForm->get('description')); ?><br>
 
-    <?php /** @var DateTime $demoDate */ ?>
-    <?php $demoDate = new DateTime(); ?>
-    <?= $this->formRow($meetupForm->get('start_date')); ?>
-    <span>ex : <?= $demoDate->format(\Application\Form\MeetupForm::FORM_DATE_FORMAT); ?></span><br>
-    <?php $demoDate->add(new DateInterval('PT2H30M')); ?>
-    <?= $this->formRow($meetupForm->get('end_date')); ?>
-    <span>ex : <?= $demoDate->format(\Application\Form\MeetupForm::FORM_DATE_FORMAT); ?></span><br>
+    <?= $this->formLabel($meetupForm->get('start_date')); ?>
+    <div class="input-group">
+        <?php /** @var DateTime $demoDate */ ?>
+        <?php $demoDate = new DateTime(); ?>
+        <?= $this->formInput($meetupForm->get('start_date')); ?>
+        <span class="input-group-addon" id="basic-addon2">ex : <?= $demoDate->format(\Application\Form\MeetupForm::FORM_DATE_FORMAT); ?></span>
+    </div>
+    <?= $this->formElementErrors($meetupForm->get('start_date')); ?>
+
+    <?= $this->formLabel($meetupForm->get('end_date')); ?>
+    <div class="input-group">
+        <?php $demoDate->add(new DateInterval('PT2H30M')); ?>
+        <?= $this->formInput($meetupForm->get('end_date')); ?>
+        <span class="input-group-addon" id="basic-addon2">ex : <?= $demoDate->format(\Application\Form\MeetupForm::FORM_DATE_FORMAT); ?></span>
+    </div><br>
+    <?= $this->formElementErrors($meetupForm->get('end_date')); ?>
 
     <?= $this->formInput($meetupForm->get('submit')); ?>
 <?= $this->form()->closeTag($meetupForm); ?>
 
 <hr>
 
-<h4>Meetup owners</h4>
+<h3><span class="label label-default">Meetup owners</span></h3>
 <?php /** @var \Application\Entity\Owner $owner */ ?>
 <?php foreach ($this->meetup->getOwners() as $owner): ?>
     <div>
-        <a href="<?= $this->url('owners/delete', ['meetupId' => $this->meetup->getId(), 'ownerId' => $owner->getId()]); ?>">Delete</a>
+        <a class="btn btn-danger" href="<?= $this->url('owners/delete', ['meetupId' => $this->meetup->getId(), 'ownerId' => $owner->getId()]); ?>">Delete</a>
         <p><?= $owner->getFullName(); ?></p>
         <p><?= $owner->getBiography(); ?></p>
     </div>
@@ -59,7 +69,7 @@
 
 <?php /** @var \Zend\Form\Form $participantForm */ ?>
 <?php $participantForm = $this->participantForm; ?>
-<h4>Add a participant to the meetup</h4>
+<h3><span class="label label-default">Add a participant to the meetup</span></h3>
 <?= $this->form()->openTag($participantForm); ?>
     <?= $this->formRow($participantForm->get('participant_firstname')); ?><br>
     <?= $this->formRow($participantForm->get('participant_lastname')); ?><br>
@@ -70,11 +80,11 @@
 
 <hr>
 
-<h4>Meetup participants</h4>
+<h3><span class="label label-default">Meetup participants</span></h3>
 <?php /** @var \Application\Entity\Participant $participant */ ?>
 <?php foreach ($this->meetup->getParticipants() as $participant): ?>
     <div>
-        <a href="<?= $this->url('participants/delete', ['meetupId' => $this->meetup->getId(), 'participantId' => $participant->getId()]); ?>">Delete</a>
+        <a class="btn btn-danger" href="<?= $this->url('participants/delete', ['meetupId' => $this->meetup->getId(), 'participantId' => $participant->getId()]); ?>">Delete</a>
         <p><?= $participant->getFullName(); ?></p>
         <p><?= $participant->getEmail(); ?></p>
     </div>

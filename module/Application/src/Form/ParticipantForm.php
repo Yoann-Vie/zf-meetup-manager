@@ -36,6 +36,9 @@ class ParticipantForm extends Form implements InputFilterProviderInterface
             'options' => [
                 'label' => 'First Name',
             ],
+            'attributes' => [
+                'class' => 'form-control'
+            ],
         ]);
         $this->add([
             'type' => Element\Text::class,
@@ -43,12 +46,18 @@ class ParticipantForm extends Form implements InputFilterProviderInterface
             'options' => [
                 'label' => 'Last Name',
             ],
+            'attributes' => [
+                'class' => 'form-control'
+            ],
         ]);
         $this->add([
             'type' => Element\Email::class,
             'name' => 'participant_email',
             'options' => [
                 'label' => 'Email Address',
+            ],
+            'attributes' => [
+                'class' => 'form-control'
             ],
         ]);
 
