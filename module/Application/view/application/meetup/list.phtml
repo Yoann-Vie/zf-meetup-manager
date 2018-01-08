@@ -1,16 +1,23 @@
 <h2>All Meetups</h2><br>
 
-<p><a href="<?= $this->url('meetups/add'); ?>">Add a new Meetup</a></p>
+<p class="btn btn-success"><a href="<?= $this->url('meetups/add'); ?>">Add a new Meetup</a></p>
 
 <?php /** @var \Application\Entity\Meetup $meetup */ ?>
 <?php foreach ($this->meetups as $meetup): ?>
     <hr>
-    <h4><a href="<?= $this->url('meetups/details', ['meetupId' => $meetup->getId()]); ?>"><?= $meetup->getTitle(); ?></a></h4>
-    <a href="<?= $this->url('meetups/update', ['meetupId' => $meetup->getId()]); ?>">Edit</a>
-    <a href="<?= $this->url('meetups/delete', ['meetupId' => $meetup->getId()]); ?>">Delete</a>
+    <div class="row">
+        <div class="col-sm-6">
+            <h4><a href="<?= $this->url('meetups/details', ['meetupId' => $meetup->getId()]); ?>"><?= $meetup->getTitle(); ?></a></h4>
+        </div>
+        <div class="col-sm-6">
+            <a class="btn btn-warning" href="<?= $this->url('meetups/update', ['meetupId' => $meetup->getId()]); ?>">Edit</a>
+            <a class="btn btn-danger" href="<?= $this->url('meetups/delete', ['meetupId' => $meetup->getId()]); ?>">Delete</a>
+        </div>
+    </div>
+    <br>
 
     <p><?= $meetup->getDescription(); ?></p>
-    <p>Beginning : <span><?= $meetup->getStartDate()->format(\Application\Service\MeetupService::DISPLAY_DATE_FORMAT); ?></span></p>
-    <p>End : <span><?= $meetup->getEndDate()->format( \Application\Service\MeetupService::DISPLAY_DATE_FORMAT); ?></span></p>
-    <a href="<?= $this->url('meetups/update', ['meetupId' => $meetup->getId()]); ?>">Add participants</a>
+    <p><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> <u>Start</u> : <span><?= $meetup->getStartDate()->format(\Application\Service\MeetupService::DISPLAY_DATE_FORMAT); ?></span></p>
+    <p><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> <u>End</u> : <span><?= $meetup->getEndDate()->format( \Application\Service\MeetupService::DISPLAY_DATE_FORMAT); ?></span></p>
+    <a class="btn btn-primary" href="<?= $this->url('meetups/update', ['meetupId' => $meetup->getId()]); ?>">Add participants</a>
 <?php endforeach; ?>
