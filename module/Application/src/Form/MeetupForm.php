@@ -50,12 +50,18 @@ class MeetupForm extends Form implements InputFilterProviderInterface
             'options' => [
                 'label' => 'Title',
             ],
+            'attributes' => [
+                'class' => 'form-control'
+            ],
         ]);
         $this->add([
             'type' => Element\Text::class,
             'name' => 'description',
             'options' => [
                 'label' => 'Description',
+            ],
+            'attributes' => [
+                'class' => 'form-control'
             ],
         ]);
         $this->add([
@@ -67,6 +73,7 @@ class MeetupForm extends Form implements InputFilterProviderInterface
             ],
             'attributes' => [
                 'step' => 'any',
+                'class' => 'form-control'
             ],
         ]);
         $this->add([
@@ -78,6 +85,7 @@ class MeetupForm extends Form implements InputFilterProviderInterface
             ],
             'attributes' => [
                 'step' => 'any',
+                'class' => 'form-control'
             ],
         ]);
         $this->add([
@@ -87,14 +95,17 @@ class MeetupForm extends Form implements InputFilterProviderInterface
                 'label' => 'Meetup owner',
                 'empty_option' => 'Select an existing owner ...',
                 'value_options' => $this->getOwnersForSelect(),
-            ]
+            ],
+            'attributes' => [
+                'class' => 'form-control'
+            ],
         ]);
-
         $this->add([
             'type' => Element\Submit::class,
             'name' => 'submit',
             'attributes' => [
-                'value' => 'Submit',
+                'value' => 'Submit Meetup',
+                'class' => 'btn btn-success'
             ],
         ]);
     }

@@ -57,6 +57,7 @@ class ParticipantForm extends Form implements InputFilterProviderInterface
             'name' => 'submit',
             'attributes' => [
                 'value' => 'Add Participant',
+                'class' => 'btn btn-success'
             ],
         ]);
     }

@@ -36,12 +36,18 @@ class OwnerForm extends Form implements InputFilterProviderInterface
             'options' => [
                 'label' => 'First Name',
             ],
+            'attributes' => [
+                'class' => 'form-control'
+            ],
         ]);
         $this->add([
             'type' => Element\Text::class,
             'name' => 'lastname',
             'options' => [
                 'label' => 'Last Name',
+            ],
+            'attributes' => [
+                'class' => 'form-control'
             ],
         ]);
         $this->add([
@@ -50,6 +56,9 @@ class OwnerForm extends Form implements InputFilterProviderInterface
             'options' => [
                 'label' => 'Biography',
             ],
+            'attributes' => [
+                'class' => 'form-control'
+            ],
         ]);
 
         $this->add([
@@ -57,6 +66,7 @@ class OwnerForm extends Form implements InputFilterProviderInterface
             'name' => 'submit',
             'attributes' => [
                 'value' => 'Create Owner',
+                'class' => 'btn btn-success'
             ],
         ]);
     }

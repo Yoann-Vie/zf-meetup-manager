@@ -180,7 +180,10 @@ class Meetup
      */
     public function addOwner(Owner $owner) : Meetup
     {
-        if (!$this->owners->contains($owner)) {
+        if ($this->owners instanceof PersistentCollection && !$this->owners->contains($owner)) {
+            $this->owners[] = $owner;
+        }
+        if (is_array($this->owners) && !in_array($owner, $this->owners)) {
             $this->owners[] = $owner;
         }
 
