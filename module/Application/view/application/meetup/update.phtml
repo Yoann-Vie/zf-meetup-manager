@@ -1,4 +1,6 @@
-<h2>Edit the meetup : <?= $this->meetup->getTitle(); ?></h2><br>
+<h2>
+    Edit the meetup : <a href="<?= $this->url('meetups/details', ['meetupId' => $meetup->getId()]); ?>"><?= $this->meetup->getTitle(); ?></a>
+</h2>
 
 <p><a href="<?= $this->url('meetups/delete', ['meetupId' => $this->meetup->getId()]); ?>">Delete</a></p>
 <p><a href="<?= $this->url('meetups/list'); ?>">All Meetups</a></p>
