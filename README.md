@@ -64,9 +64,11 @@ Accès à PhpMyAdmin
 http://localhost:9090/
 ```
 #### Comptes Mysql
+
 Root user
 - login : `root`
 - password : `aye4DzRW`
+
 Application user
 - login : `application`
 - password : `fgWvFbhK`
