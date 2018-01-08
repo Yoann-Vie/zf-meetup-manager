@@ -56,3 +56,18 @@ Lancer la création de l'architecture de la base de données.
 ```
 docker-compose exec zf php vendor/bin/doctrine-module orm:schema-tool:update --force
 ```
+
+## Base de données
+
+Accès à PhpMyAdmin
+```
+http://localhost:9090/
+```
+#### Comptes Mysql
+Root user
+- login : `root`
+- password : `aye4DzRW`
+Application user
+- login : `application`
+- password : `fgWvFbhK`
+
